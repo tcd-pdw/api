@@ -16,4 +16,6 @@ data class UserDTO(
     @NotBlank
     var geralScore: Int = 0
 
-)
+) {
+
+}
