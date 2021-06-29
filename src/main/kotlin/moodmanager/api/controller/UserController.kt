@@ -1,5 +1,6 @@
 package moodmanager.api.controller
 
+import moodmanager.api.model.User
 import moodmanager.api.modelDTO.ResponseDTO
 import moodmanager.api.modelDTO.UserDTO
 import moodmanager.api.service.UserService
@@ -12,8 +13,8 @@ import javax.validation.Valid
 class UserController(private val userService: UserService) {
 
     @GetMapping
-    fun getAllUsers():ArrayList<UserDTO> {
-        return userService.getAllUsers()
+    fun getUser():User {
+        return User(10.toLong(), "felipejhordan123","felp",2)
     }
 //
 //    @GetMapping("/{username}")

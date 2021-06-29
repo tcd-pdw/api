@@ -11,9 +11,9 @@ data class Preference(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 
-    val cherring_up: Boolean,
-    val song_sugestion: Boolean,
-    val self_improvment: Boolean
+    val cherring_up: Boolean = false,
+    val song_sugestion: Boolean = false ,
+    val self_improvment: Boolean = false
 ) {
     companion object {
         fun toDTO(obj: Preference): PreferenceDTO {

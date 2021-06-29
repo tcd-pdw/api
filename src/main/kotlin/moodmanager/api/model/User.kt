@@ -34,12 +34,20 @@ data class User (
             }
         }
 
-        fun toMultipleDTO(arr: ArrayList<User>): ArrayList<UserDTO> {
-            val userDTOS = ArrayList<UserDTO>()
-            arr.forEach {
-                userDTOS.add(this.toDTO(it))
-            }
-            return userDTOS
-        }
-    }
+//        fun toMultipleDTO(arr: ArrayList<User>): ArrayList<UserDTO> {
+//            val userDTOS = ArrayList<UserDTO>()
+//            arr.forEach {
+//                userDTOS.add(this.toDTO(it))
+//            }
+//            return userDTOS
+//        }
+
+    @OneToOne()
+    val preference: Preference = Preference()
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    val registers: MutableList<Register> = arrayListOf<Register>()
+
+    @ManyToMany( fetch = FetchType.LAZY )
+    val interests: MutableList<Interest> = arrayListOf<Interest>()
 }

@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/users/preference")
 class PreferenceController(private val userService: UserService){
-    @GetMapping
-    fun getAllUsers():ArrayList<UserDTO> {
-        return userService.getAllUsers()
-    }
+//    @GetMapping
+//    fun getAllUsers():ArrayList<UserDTO> {
+////        return userService.getAllUsers()
+//    }
 
 }
