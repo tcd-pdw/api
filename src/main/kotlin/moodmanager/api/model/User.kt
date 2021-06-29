@@ -11,28 +11,16 @@ data class User (
 
     val username: String = "",
     val password: String = "",
-
-    val geralScore: Int = 0,
-
-
-    @OneToOne(mappedBy = "users")
-    val preference: Preference,
-
-    @ManyToMany(mappedBy = "users")
-    val registers: ArrayList<Register>,
-
-    @ManyToMany(mappedBy = "users")
-    val interests: ArrayList<Interest>
-
+    val geralScore: Int = 0
 
 )
 {
-    companion object {
-        fun toDTO( obj: User): UserDTO {
-            return with(obj as User) {
-                UserDTO(obj)
-            }
-        }
+//    companion object {
+//        fun toDTO( obj: User): UserDTO {
+//            return with(obj as User) {
+//                UserDTO(obj)
+//            }
+//        }
 
 //        fun toMultipleDTO(arr: ArrayList<User>): ArrayList<UserDTO> {
 //            val userDTOS = ArrayList<UserDTO>()

@@ -11,10 +11,10 @@ import org.springframework.stereotype.Service
 @Service
 class UserService(private val userRepository: UserRepository, private val passwordEncoder: PasswordEncoder) {
 
-    fun getAllUsers():ArrayList<UserDTO> {
-         val arrayUsers: ArrayList<UserDTO> = User.toMultipleDTO(this.userRepository.findAll() as ArrayList<User>)
-         return arrayUsers
-    }
+//    fun getAllUsers():ArrayList<UserDTO> {
+//         val arrayUsers: ArrayList<UserDTO> = User.toMultipleDTO(this.userRepository.findAll() as ArrayList<User>)
+//         return arrayUsers
+//    }
 
     fun addUser(userDTO: UserDTO):  ResponseDTO {
         if(usernameExist(userDTO.username)){
@@ -35,6 +35,6 @@ class UserService(private val userRepository: UserRepository, private val passwo
     }
 
      fun fromDTO(userDTO: UserDTO): User {
-         return User(0, userDTO.username, userDTO.password, userDTO.geralScore, userDTO.)
+         return User(0, userDTO.username, userDTO.password, userDTO.geralScore)
      }
 }

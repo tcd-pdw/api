@@ -14,8 +14,6 @@ data class UserDTO(
     var password: String = "",
 
     @NotBlank
-    var geralScore: Int = 0,
-
-    var preference: PreferenceDTO? = null,
+    var geralScore: Int = 0
 
 )
