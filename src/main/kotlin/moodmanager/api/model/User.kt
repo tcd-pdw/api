@@ -6,29 +6,15 @@ import javax.persistence.*
 @Entity
 @Table( name = "users")
 data class User (
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long = 0,
 
     val username: String = "",
+    val email: String = "",
     val password: String = "",
     val geralScore: Int = 0
 
 )
 {
-//    companion object {
-//        fun toDTO( obj: User): UserDTO {
-//            return with(obj as User) {
-//                UserDTO(obj)
-//            }
-//        }
-
-//        fun toMultipleDTO(arr: ArrayList<User>): ArrayList<UserDTO> {
-//            val userDTOS = ArrayList<UserDTO>()
-//            arr.forEach {
-//                userDTOS.add(this.toDTO(it))
-//            }
-//            return userDTOS
-//        }
+    @Id @GeneratedValue var id: Long? = null
 
     @OneToOne()
     val preference: Preference = Preference()
