@@ -16,12 +16,16 @@ data class User (
 {
     @Id @GeneratedValue var id: Long? = null
 
-    @OneToOne()
+    @OneToOne(cascade = [(CascadeType.ALL)],fetch = FetchType.LAZY)
     val preference: Preference = Preference()
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @OneToMany(cascade = [(CascadeType.ALL)], fetch = FetchType.LAZY)
     val registers: MutableList<Register> = arrayListOf<Register>()
 
-    @ManyToMany( fetch = FetchType.LAZY )
+    @OneToMany(cascade = [(CascadeType.ALL)], fetch = FetchType.LAZY)
     val interests: MutableList<Interest> = arrayListOf<Interest>()
+
+    override fun toString(): String {
+        return "Username: ${username}, email: ${email}, password: ${password}, geralScore: ${geralScore}"
+    }
 }

@@ -17,10 +17,41 @@ class UserService(private val userRepository: UserRepository, private val passwo
     }
 
     fun add(user:User):Boolean{
-        return !userRepository.existsByUsername(user.username)
+        if(userRepository.existsByUsername(user.username)) {
+            return false
+        }else {
+            var u:User = userRepository.save(user)
+            return true
+        }
     }
      fun fromDTO(userDTO: NewUserDTO): User {
          return User(userDTO.username,userDTO.email, userDTO.password)
      }
 
+    fun authenticate(u:UserDTO):User{
+        var user = userRepository.findByEmail(u.email)
+
+        if(u.password == user.password)
+            return user
+        else
+            return User("","")
+    }
+
+    fun saveauth(u:User):User{
+        var user = userRepository.findByEmail(u.email)
+
+        if(user!=null){
+            if(u.password != user.password){
+                return User("","")
+            }else{
+                return user
+            }
+        }else{
+            return return User("","")
+        }
+    }
+
+    fun save(u:User):User{
+        return userRepository.save(u)
+    }
 }

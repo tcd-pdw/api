@@ -4,17 +4,12 @@ import kotlinx.serialization.Serializable
 import javax.validation.constraints.NotBlank
 
 @Serializable
-data class UserDTO(
-    var id: Long = 0,
+class UserDTO(
+    @NotBlank
+    var email: String = "",
 
     @NotBlank
-    var username: String = "",
-
-    @NotBlank
-    var password: String = "",
-
-    @NotBlank
-    var geralScore: Int = 0
+    var password: String = ""
 
 ) {
 

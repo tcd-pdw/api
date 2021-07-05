@@ -13,10 +13,6 @@ import javax.validation.constraints.NotBlank
 
 @Serializable
 data class RegisterDTO (
-    var id: Long = 0,
-
-
-
     @NotBlank
     @Contextual
     var date: LocalDateTime,
@@ -24,7 +20,6 @@ data class RegisterDTO (
 
     ) :Any() {
     constructor(register: Register): this(
-        id = register.id,
         date = register.date,
         description = register.description) {
     }

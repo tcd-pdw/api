@@ -1,14 +1,17 @@
 package moodmanager.api.model
 
 import javax.persistence.*
+import javax.validation.constraints.NotBlank
 
 @Entity
 @Table( name = "interests")
 data class Interest(
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long = 0,
+    @NotBlank
+    var name: String,
+    @NotBlank
+    var description: String
+){
+    @Id @GeneratedValue var id: Long? = null
 
-    val name: String,
-    val description: String,
-    val score: Int
-)
+    var score: Integer? = null
+}

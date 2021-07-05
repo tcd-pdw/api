@@ -1,33 +1,19 @@
 package moodmanager.api.model
 
-import moodmanager.api.modelDTO.PreferenceDTO
-import moodmanager.api.modelDTO.RegisterDTO
 import javax.persistence.*
 
 
 @Entity
 @Table( name = "preferences")
 data class Preference(
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long = 0,
-
-    val cherring_up: Boolean = false,
-    val song_sugestion: Boolean = false ,
-    val self_improvment: Boolean = false
+    var cherring_up: Boolean = false,
+    var song_sugestion: Boolean = false,
+    var self_improvment: Boolean = false
 ) {
-    companion object {
-        fun toDTO(obj: Preference): PreferenceDTO {
-            return with(obj as Preference) {
-                PreferenceDTO(obj)
-            }
-        }
-
-        fun toMultipleDTO(arr: ArrayList<Preference>): ArrayList<PreferenceDTO> {
-            val preferenceDTO = ArrayList<PreferenceDTO>()
-            arr.forEach {
-                preferenceDTO.add(this.toDTO(it))
-            }
-            return preferenceDTO
-        }
+    @Id @GeneratedValue var id: Long? = null
+    fun setPreference(c:Boolean,s:Boolean,i:Boolean){
+        cherring_up = c
+        song_sugestion = s
+        self_improvment = i
     }
 }
