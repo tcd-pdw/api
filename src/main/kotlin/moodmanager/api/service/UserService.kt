@@ -44,7 +44,7 @@ class UserService(private val userRepository: UserRepository, private val passwo
             if(u.password != user.password){
                 return User("","")
             }else{
-                return user
+                return u
             }
         }else{
             return return User("","")
@@ -52,6 +52,8 @@ class UserService(private val userRepository: UserRepository, private val passwo
     }
 
     fun save(u:User):User{
+        println("Dentro do service")
+        println(u)
         return userRepository.save(u)
     }
 }

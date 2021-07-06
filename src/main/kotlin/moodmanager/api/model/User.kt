@@ -26,6 +26,6 @@ data class User (
     val interests: MutableList<Interest> = arrayListOf<Interest>()
 
     override fun toString(): String {
-        return "Username: ${username}, email: ${email}, password: ${password}, geralScore: ${geralScore}"
+        return "Id: ${id}, Username: ${username}, email: ${email}, password: ${password}, geralScore: ${geralScore}"
     }
 }

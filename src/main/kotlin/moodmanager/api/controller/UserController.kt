@@ -1,12 +1,14 @@
 package moodmanager.api.controller
 
 import moodmanager.api.model.Interest
+import moodmanager.api.model.Phrase
 import moodmanager.api.model.Register
 import moodmanager.api.model.User
 import moodmanager.api.modelDTO.NewUserDTO
 import moodmanager.api.modelDTO.ResponseDTO
 import moodmanager.api.modelDTO.UserDTO
 import moodmanager.api.service.InterestService
+import moodmanager.api.service.PhraseService
 import moodmanager.api.service.RegisterService
 import moodmanager.api.service.UserService
 import org.springframework.http.HttpStatus
@@ -22,7 +24,8 @@ import kotlin.reflect.jvm.internal.impl.load.kotlin.JvmType
 class UserController(
     private val userService: UserService,
     private val registerService: RegisterService,
-    private val interestService: InterestService
+    private val interestService: InterestService,
+    private val phraseService: PhraseService
     ) {
 
 //    @GetMapping
@@ -43,12 +46,12 @@ class UserController(
     @PostMapping("/login")
     fun login(@RequestBody @Valid user: UserDTO): Any{
         val u = userService.authenticate(user)
-//        u.registers.add(Register(LocalDateTime.now(),"To Happy"))
-//        u.interests.add(Interest("Philosofy","Old philosofy and states"))
+        val ps:List<Phrase> = phraseService.findByScore(u.geralScore)
 
         if(u!=null){
             return object {
                 val newuser = u
+                val phrases = ps
             }
         }else {
             return false
@@ -57,10 +60,11 @@ class UserController(
 
     @PostMapping("/save")
     fun save(@RequestBody @Valid user:User): ResponseEntity<User> {
-        println(user)
-        println(user.toString())
 
+        println(user)
         var u = userService.saveauth(user)
+        println(u)
+
         if(u!=null){
             if(registerService.saveAll(user.registers)){
                 u.registers.addAll(user.registers)
@@ -70,7 +74,9 @@ class UserController(
             }
             u.preference.setPreference(user.preference.cherring_up,user.preference.song_sugestion,user.preference.self_improvment)
         }
+        println(u)
         var newuser = userService.save(u)
+        println(newuser)
         return ResponseEntity.ok(newuser)
     }
 }
