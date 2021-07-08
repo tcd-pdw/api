@@ -12,14 +12,11 @@ import org.springframework.stereotype.Service
 @Service
 class UserService(private val userRepository: UserRepository, private val passwordEncoder: PasswordEncoder) {
 
-    fun usernameExist( username: String) : Boolean {
-        return userRepository.existsByUsername(username)
-    }
-
-    fun add(user:User):Boolean{
-        if(userRepository.existsByUsername(user.username)) {
+        fun add(user:User):Boolean{
+        if(userRepository.existsByEmail(user.email)) {
             return false
         }else {
+            user.password = passwordEncoder.encode(user.password)
             var u:User = userRepository.save(user)
             return true
         }
@@ -31,7 +28,7 @@ class UserService(private val userRepository: UserRepository, private val passwo
     fun authenticate(u:UserDTO):User{
         var user = userRepository.findByEmail(u.email)
 
-        if(u.password == user.password)
+        if(passwordEncoder.matches(u.password, user.password))
             return user
         else
             return User("","")
@@ -41,9 +38,12 @@ class UserService(private val userRepository: UserRepository, private val passwo
         var user = userRepository.findByEmail(u.email)
 
         if(user!=null){
-            if(u.password != user.password){
+            if(!passwordEncoder.matches(u.password, user.password)){
                 return User("","")
             }else{
+                u.id = user.id
+                u.username = user.username
+                u.preference.id = user.preference.id
                 return u
             }
         }else{
@@ -52,8 +52,7 @@ class UserService(private val userRepository: UserRepository, private val passwo
     }
 
     fun save(u:User):User{
-        println("Dentro do service")
-        println(u)
+        u.password = passwordEncoder.encode(u.password)
         return userRepository.save(u)
     }
 }
