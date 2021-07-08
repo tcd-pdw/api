@@ -6,23 +6,23 @@ import javax.persistence.*
 @Entity
 @Table( name = "users")
 data class User (
-
-    val username: String = "",
+    var username: String = "",
     val email: String = "",
-    val password: String = "",
+    var password: String = "",
     val geralScore: Int = 0
-
 )
 {
     @Id @GeneratedValue var id: Long? = null
 
     @OneToOne(cascade = [(CascadeType.ALL)],fetch = FetchType.LAZY)
-    val preference: Preference = Preference()
+    var preference: Preference = Preference()
 
     @OneToMany(cascade = [(CascadeType.ALL)], fetch = FetchType.LAZY)
+    @JoinColumn(name = "user", referencedColumnName = "id", nullable = false)
     val registers: MutableList<Register> = arrayListOf<Register>()
 
     @OneToMany(cascade = [(CascadeType.ALL)], fetch = FetchType.LAZY)
+    @JoinColumn(name = "user", referencedColumnName = "id", nullable = false)
     val interests: MutableList<Interest> = arrayListOf<Interest>()
 
     override fun toString(): String {
