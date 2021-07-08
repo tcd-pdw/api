@@ -1,6 +1,7 @@
 package moodmanager.api.service
 
 import moodmanager.api.model.Phrase
+import moodmanager.api.model.Preference
 import moodmanager.api.model.Type
 import moodmanager.api.modelDTO.PhraseDTO
 import moodmanager.api.repository.PhraseRepository
@@ -21,7 +22,28 @@ class PhraseService(private val phraseRepository: PhraseRepository, private val 
         return phraseRepository.findAll()
     }
 
-    fun findByScore(s:Int):List<Phrase>{
+    fun getTypesByPreference(preference: Preference): ArrayList<Type> {
+        val types: ArrayList<Type> = ArrayList()
+        if(!preference.song_sugestion) {
+            types.add(Type.SONG_REC)
+        }
+        if(!preference.self_improvment) {
+            types.add(Type.HABIT)
+        }
+
+        if(!preference.cherring_up) {
+            types.add(Type.MOTIVATIONAL)
+        }
+        return types
+    }
+
+    fun findByScoreAndPreferences(s:Int, preferences: Preference):List<Phrase>{
+        val typesValidator = getTypesByPreference(preferences)
+        print(typesValidator.toString())
+        if(typesValidator.size > 0) {
+            return phraseRepository.findByScoreAndTypeNotIn(s, typesValidator)
+        }
         return phraseRepository.findByScore(s)
     }
+
 }
