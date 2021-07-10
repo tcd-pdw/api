@@ -12,7 +12,9 @@ data class Register(
     @NotBlank
     val date: LocalDateTime,
     @NotBlank
-    val description: String
+    val description: String,
+    @NotBlank
+    val score: Int
     ) {
     @Id @GeneratedValue var id: Long? = null
 }
